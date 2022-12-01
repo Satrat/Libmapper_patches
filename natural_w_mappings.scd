@@ -35,9 +35,10 @@ e = Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/branch_beat2.wav
 ~delayed_branch = {CombC.ar(~branch, 5.0, MapIn.kr(\branchDelay, 0.05, 0.5), MapIn.kr(\branchDecay, 0.0, 1.5) , 0.2, 0.0)};
 ~total_branch = {(~branch + ~delayed_branch) * MapIn.kr(\branchAmp, 0, 1)};
 
+
 //chord pad
-~saw_pad1 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0,\degree, Prand([Pseq([0,4]), Pseq([0,-3])],inf), \octave,4,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.5, \cfhzmax, 1.0, \cfmin, MapIn.kr(\padMinCutoff, 100, 200), \cfmax, MapIn.kr(\padMaxCutoff, 500, 1000), \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
-~saw_pad2 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0, \degree, Prand([Pseq([2,1]), Pseq([0,-1])],inf), \octave,5,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.1, \cfhzmax, 1.0, \cfmin, MapIn.kr(\padMinCutoff, 100, 200), \cfmax, MapIn.kr(\padMaxCutoff, 500, 1000), \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
+~saw_pad1 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0,\degree, Prand([Pseq([0,4]), Pseq([0,-3])],inf), \octave,4,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.5, \cfhzmax, 1.0,  \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
+~saw_pad2 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0, \degree, Prand([Pseq([2,1]), Pseq([0,-1])],inf), \octave,5,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.1, \cfhzmax, 1.0, \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
 ~verb_pad = {FreeVerb.ar(~saw_pad1 + ~saw_pad2,0.3,1.2) * MapIn.kr(\padAmp, 0, 1)};
 
 //Lead line, fluttery sine
@@ -48,8 +49,18 @@ SynthDef(\sin_synth, { | out=0, freq = 220, amp = 0.3, atk=0.01, sus=0.2, rel=0.
 	sig = BLowPass.ar(sig*env*amp,MapIn.kr(\leadCutoff, 400, 1500),2.0,1.0,0.0);
 	Out.ar(out,[sig, sig]);
 }).add;
-~sin_syn = Pbind(\instrument,\sin_synth,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,Prand([0,2,4,6,7],inf),\octave,6, \dur,Pwrand([Pseq([0.5,0.5]),Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5,8])],[0.3,0.3, 0.4],inf),\amp,0.4,\sus,0.1,\atk,0.05, \rel,0.5,\fb,Pexprand(0.6,1.1),\amp,0.2);
+~sin_syn = Pbind(\instrument,\sin_synth,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,Prand([0,2,4,6,7],inf),\octave,6, \dur,Pwrand([Pseq([0.5,0.5]),Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5,8])],[0.3,0.3, 0.4],inf),\amp,0.4,\sus,0.1,\atk,0.05, \rel,0.5,\amp,0.2);
 ~verb_sin = {FreeVerb.ar(~sin_syn,0.6,1.2)  * MapIn.kr(\leadAmp, 0, 1)};
+)
+
+(
+var padMinBus = Mapper.makeInSignalBus(s, "padMinBus", 100, 200);
+var padMaxBus = Mapper.makeInSignalBus(s, "padMaxBus", 100, 200);
+
+~saw_pad1.map(\cfmin, padMinBus);
+~saw_pad2.map(\cfmin, padMinBus);
+~saw_pad1.map(\cfmax, padMaxBus);
+~saw_pad2.map(\cfmax, padMaxBus);
 )
 
 (

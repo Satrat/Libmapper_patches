@@ -19,7 +19,7 @@ j = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/glitchy_drum_lo
     var pointer, size, rand;
     // pointer - move from beginning to end of soundfile over 15 seconds
     pointer = LFSaw.ar(1/6).range(0, 1);
-	size = 0.1; //MapIn.kr(\grainSize, 0.1, 2);
+	size = 0.01; //MapIn.kr(\grainSize, 0.1, 2);
 	rand = 0.2; //MapIn.kr(\grandAmnt, 0, 1);
     Warp1.ar(
         numChannels:1,
@@ -28,10 +28,10 @@ j = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/glitchy_drum_lo
         freqScale: 1,
         windowSize:size,
         envbufnum:envbuf,
-        overlaps:5,
+        overlaps:1,
         windowRandRatio:rand,
         interp:2
-	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * 0.2
+	) * SinOsc.ar(p.clock.tempo, 0.5, 0.5) * 0.2
 }
 )
 
@@ -66,7 +66,7 @@ SynthDef(\ring1,
 ~ring1.play;
 ~ring1.stop;
 
-~ring2 = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.minor,\root,0,\degree,5,\octave,5,\dur,Pwrand([Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5, 0.5]), Pseq([1,1])], [0.1, 0.2, 0.7], inf), \d,0.3,\a,0.6,\pan,0,\amp,0.2);
+~ring2 = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.minor,\root,0,\degree,5,\octave,5,\dur,Pwrand([Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5, 0.5]), Pseq([1,1])], [0.5, 0.2, 0.7], inf), \d,0.3,\a,0.6,\pan,0,\amp,0.2);
 ~ring2.play;
 ~ring2.stop;
 
@@ -96,6 +96,6 @@ SynthDef(\crack, { | out=0, chaos = 1.0, atk=0.1, sus=0.2, rel=0.1, ts=1,co=3000
 }).add;
 )
 
-~crack = Pbind(\instrument,\crack, \dur,Pseq([1],inf), \atk, 0.01, \sus, 0.01, \rel, 0.1, \chaos, 1.5, \amp, 1.0);
+~crack = Pbind(\instrument,\crack, \dur,Pseq([1],inf), \atk, 0.01, \sus, 0.01, \rel, 0.05, \chaos, 1.0, \amp, 0.5);
 ~crack.play;
 ~crack.stop;
