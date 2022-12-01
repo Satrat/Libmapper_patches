@@ -31,7 +31,7 @@ j = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/glitchy_drum_lo
         overlaps:5,
         windowRandRatio:rand,
         interp:2
-	) * SinOsc.ar(0.2, 0.5, 0.5)
+	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * 0.2
 }
 )
 
