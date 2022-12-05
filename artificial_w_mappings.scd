@@ -1,5 +1,5 @@
 "setup/Setup.scd".loadRelative;
-Mapper.enable("Artificial");
+Mapper.enable("SuperCollider");
 
 (
 ~bp_saw = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.minor,\root,0,\degree,0,\octave,4,\dur, 1, \pan,0,\detune,0.1,\cfmin,500, \cfmax,5000, \cfhzmin, 0.1);
@@ -13,19 +13,19 @@ j = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/glitchy_drum_lo
     var pointer, size, rand;
     // pointer - move from beginning to end of soundfile over 6 seconds
     pointer = LFSaw.ar(1/6).range(0, 1);
-	size = MapIn.kr(\grainSize, 0.01, 0.5);
-	rand = MapIn.kr(\grainRand, 0, 0.5);
+	size = MapIn.kr("humans/grain/size", 0.01, 0.5);
+	rand = MapIn.kr("humans/grain/rand", 0, 0.5);
     Warp1.ar(
         numChannels:1,
         bufnum:j,
         pointer:pointer,
-        freqScale:MapIn.kr(\grainFreqScale, 0.25, 1.25),
+        freqScale:MapIn.kr("humans/grain/freqScale", 0.25, 1.25),
         windowSize:size,
         envbufnum:envbuf,
         overlaps:5, //TODO: controllable but needs to be an int
         windowRandRatio:rand,
         interp:2
-	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * MapIn.kr(\grainAmp, 0.0, 0.5)
+	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * MapIn.kr("humans/grain/amp", 0.0, 0.5)
 	//TODO: make sinOsc controllable but needs to be a power of 2
 };
 
@@ -41,7 +41,6 @@ SynthDef(\ring1,
 		Out.ar(out,Pan2.ar(sig.tanh,pan) * amp)
 	};
 ).add;
-
 
 ~ring1 = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.minor,\root,0,\degree,0,\octave,5,\dur,Pseq([0.5,0.5,1],inf),\d,0.3,\amax,0.6);
 
@@ -60,20 +59,20 @@ SynthDef(\crack, { | out=0, chaos = 1.0, atk=0.1, sus=0.2, rel=0.1, ts=1,co=3000
 )
 
 (
-var saw1Amp = Mapper.makeInSignalBus(s, "saw1Amp", 0.0, 0.25);
-var saw2Amp = Mapper.makeInSignalBus(s, "saw2Amp", 0.0, 0.25);
-var saw3Amp = Mapper.makeInSignalBus(s, "saw3Amp", 0.0, 0.25);
-var sawPad1MaxMod = Mapper.makeInSignalBus(s, "sawPad1MaxMod", 1, 20);
-var sawPad2MaxMod = Mapper.makeInSignalBus(s, "sawPad2MaxMod", 1, 30);
-var sawPad3MaxMod = Mapper.makeInSignalBus(s, "sawPad3MaxMod", 1, 50);
-var ring1Amp = Mapper.makeInSignalBus(s, "ring1Amp", 0.0, 0.4);
-var ring2Amp = Mapper.makeInSignalBus(s, "ring2Amp", 0.0, 0.5);
-var ring3Amp = Mapper.makeInSignalBus(s, "ring3Amp", 0.0, 0.3);
-var ringDecay = Mapper.makeInSignalBus(s, "ringDecay", 0.1, 0.5);
-var ringMult = Mapper.makeInSignalBus(s, "ringMult", 1.0, 50);
-var chaosAmp = Mapper.makeInSignalBus(s, "chaosAmp", 0.0, 1.0);
-var chaosAmnt = Mapper.makeInSignalBus(s, "chaosAmnt", 1.0, 2.0);
-var chaosRelease = Mapper.makeInSignalBus(s, "chaosRelease", 0.01, 0.2);
+var saw1Amp = Mapper.makeInSignalBus(s, "humans/saw1Amp", 0.0, 0.25);
+var saw2Amp = Mapper.makeInSignalBus(s, "humans/saw2Amp", 0.0, 0.25);
+var saw3Amp = Mapper.makeInSignalBus(s, "humans/saw3Amp", 0.0, 0.25);
+var sawPad1MaxMod = Mapper.makeInSignalBus(s, "humans/sawPad1MaxMod", 1, 20);
+var sawPad2MaxMod = Mapper.makeInSignalBus(s, "humans/sawPad2MaxMod", 1, 30);
+var sawPad3MaxMod = Mapper.makeInSignalBus(s, "humans/sawPad3MaxMod", 1, 50);
+var ring1Amp = Mapper.makeInSignalBus(s, "humans/ring/amp1", 0.0, 0.4);
+var ring2Amp = Mapper.makeInSignalBus(s, "humans/ring/amp2", 0.0, 0.5);
+var ring3Amp = Mapper.makeInSignalBus(s, "humans/ring/amp3", 0.0, 0.3);
+var ringDecay = Mapper.makeInSignalBus(s, "humans/ring/decay", 0.1, 0.5);
+var ringMult = Mapper.makeInSignalBus(s, "humans/ring/mult", 1.0, 50);
+var chaosAmp = Mapper.makeInSignalBus(s, "humans/chaos/amp", 0.0, 1.0);
+var chaosAmnt = Mapper.makeInSignalBus(s, "humans/chaos/amnt", 1.0, 2.0);
+var chaosRelease = Mapper.makeInSignalBus(s, "humans/chaos/release", 0.01, 0.2);
 
 ~bp_saw.map(\amp, saw1Amp);
 ~bp_saw2.map(\amp, saw2Amp);
@@ -112,3 +111,5 @@ var chaosRelease = Mapper.makeInSignalBus(s, "chaosRelease", 0.01, 0.2);
 ~ring3.stop;
 ~crack.stop;
 )
+
+Quarks.install("Bjorklund");
