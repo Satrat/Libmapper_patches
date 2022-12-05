@@ -7,11 +7,12 @@ s.waitForBoot {
 	Task({
 		6.wait;
 		("load_artificial.scd").loadRelative;
-		6.wait;
+		3.wait;
 		("load_natural.scd").loadRelative;
-		6.wait;
-		("signal_buses.scd").loadRelative;
-		6.wait;
+		3.wait;
+		("natural_signals.scd").loadRelative;
+		("artificial_signals.scd").loadRelative;
+		3.wait;
 		("play.scd").loadRelative;
 	}).start;
 };

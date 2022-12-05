@@ -6,23 +6,21 @@
 ~bp_saw3 = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.minor,\root,0,\degree,0,\octave,2,\dur, 1, \pan,0, \detune,0.1,\cfmin,100, \cfmax,1000, \cfhzmin, 2, \lsf, 50);
 
 j = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/glitchy_drum_loop.wav");
-~grain =  { |envbuf = -1|
-    var pointer, size, rand;
+~grain =  { arg size = 0.1, rand = 0.2, scale = 1.0, amp = 0.1;
+    var pointer;
     // pointer - move from beginning to end of soundfile over 6 seconds
     pointer = LFSaw.ar(1/6).range(0, 1);
-	size = MapIn.kr("humans/grain/size", 0.01, 0.5);
-	rand = MapIn.kr("humans/grain/rand", 0, 0.5);
     Warp1.ar(
         numChannels:1,
         bufnum:j,
         pointer:pointer,
-        freqScale:MapIn.kr("humans/grain/freqScale", 0.25, 1.25),
+        freqScale:scale,
         windowSize:size,
-        envbufnum:envbuf,
+        envbufnum:-1,
         overlaps:5, //TODO: controllable but needs to be an int
         windowRandRatio:rand,
         interp:2
-	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * MapIn.kr("humans/grain/amp", 0.0, 0.5)
+	) * SinOsc.ar(p.clock.tempo / 4, 0.5, 0.5) * amp
 	//TODO: make sinOsc controllable but needs to be a power of 2
 };
 
