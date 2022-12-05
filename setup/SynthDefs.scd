@@ -1,29 +1,9 @@
-/*
 
-coï¿¥ï¾¡pt SynthDef library
-
-used as part of howto_co34pt_livecode
-
-*/
 (
 
 /*
-
 bplay: basic stereo buffer player
-This is the bread and butter of my SynthDef library
-Designed for simple repeated playback of stereo buffers inside of a pattern
-TODO: This - Stereo samples are currently mixed down to mono and positioned in a stereo field by using the Pan2 Ugen. I'm going to correct this soon
-
-out = channel out
-buf = buffer index
-rate = rate of playback (or pitch)
-amp = volume
-pan = stereo panning of sample
-pos = position of playback (usually not used)
-rel = release (usually not used, this is only really in case I accidentally play a sample backwards, and need the synth to free at some point in the future, or schedule very long samples to be played. This is a security measure in case I box my processor.)
-
 */
-
 SynthDef(\bplay,
 	{arg out = 0, buf = 0, rate = 1, amp = 0.5, pan = 0, pos = 0, rel=15;
 		var sig,env ;
@@ -32,57 +12,6 @@ SynthDef(\bplay,
 		sig = sig * env;
 		sig = sig * amp;
 		Out.ar(out,Pan2.ar(sig,pan));
-}).add;
-
-/*
-
-bplaym: basic mono buffer player
-Designed for simple repeated playback of mono buffers inside of a pattern
-
-out = channel out
-buf = buffer index
-rate = rate of playback (or pitch)
-amp = volume
-pan = stereo panning of sample
-pos = position of playback (usually not used)
-rel = release (usually not used, this is only really in case I accidentally play a sample backwards, and need the synth to free at some point in the future, or schedule very long samples to be played. This is a security measure in case I box my processor.)
-
-*/
-
-SynthDef(\bplaym,
-	{arg out = 0, buf = 0, rate = 1, amp = 0.5, pan = 0, pos = 0, rel=15;
-		var sig,env ;
-		sig = Pan2.ar(PlayBuf.ar(1,buf,BufRateScale.ir(buf) * rate,1,BufDur.kr(buf)*pos*44100,doneAction:2),pan);
-		env = EnvGen.ar(Env.linen(0.0,rel,0),doneAction:2);
-		sig = sig * env;
-		sig = sig * amp;
-		Out.ar(out,sig);
-}).add;
-
-/*
-
-bplaymr: basic reversed mono buffer player
-plays back a mono sample in reverse. I designed this for a specific instance but kept it in the setupfile because why not. It takes away some of the extra work needed to schedule the playing of backward sample within my other SynthDefs
-
-out = channel out
-buf = buffer index
-rate = rate of playback (or pitch)
-amp = volume
-pan = stereo panning of sample
-pos = position of playback (usually not used)
-rel = release (usually not used, this is only really in case I accidentally play a sample backwards, and need the synth to free at some point in the future, or schedule very long samples to be played. This is a security measure in case I box my processor.)
-
-*/
-
-
-SynthDef(\bplaymr,
-	{arg out = 0, buf = 0, rate = 1, amp = 0.5, pan = 0, pos = 0, rel=3;
-		var sig,env ;
-		sig = Pan2.ar(PlayBuf.ar(1,buf,rate.neg,1,BufDur.kr(buf)*44100-2,doneAction:2),pan);
-		env = EnvGen.ar(Env.linen(0.0,rel,0),doneAction:2);
-		sig = sig * env;
-		sig = sig * amp;
-		Out.ar(out,sig);
 }).add;
 
 /*
@@ -113,7 +42,6 @@ out = channels out
 
 */
 
-(
 SynthDef(\bpfsaw, {
 	arg atk=2, sus=0, rel=3, ts=1, c1=1, c2=(-1), freq=500, detune=0.02, pan=0, cfhzmin=0.1, cfhzmax=0.3, cfmin=500, cfmax=2000, rqmin=0.1, rqmax=0.2, lsf=200, ldb=0, amp=1, out=0;
 	var sig, env;
@@ -131,5 +59,4 @@ SynthDef(\bpfsaw, {
 	sig = sig*env*amp;
 	Out.ar(out,sig);
 }).add;
-);
 )
