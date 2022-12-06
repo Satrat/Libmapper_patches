@@ -15,6 +15,7 @@ p=ProxySpace.push(s);
 p.makeTempoClock;
 //give proxyspace a tempo
 p.clock.tempo = 2;
+p.fadeTime = 0.01;
 Task({
 	3.wait;
 	("SynthDefs.scd").loadRelative;

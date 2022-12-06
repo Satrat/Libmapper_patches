@@ -1,7 +1,7 @@
 
 (
 //drone, sum up harmonics and oscillate between random volumes
-~sin_harm_bass = {arg freq = (60 - 24).midicps, amp = 0.4, rate=0.1;
+~sin_harm_bass = {arg freq = 65.40639132515, amp = 0.4, rate=0.1;
 	var n = 8;
 	Mix.fill(n, {arg index;
 		var f;
@@ -9,7 +9,6 @@
 		SinOsc.ar([f, f * 1.01], 0.0, 1/n * amp * LFNoise1.kr(rate))
 	})
 };
-
 
 //play loops of leaves
 b=Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/leaf_loop3_breath.wav");
@@ -31,12 +30,12 @@ l = Prewrite(2, // start with 1
         ), 4);
 e = Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/branch_beat2.wav");
 ~branch = Pbind(\instrument,\bplay,\buf,e,\dur,l);
-~delayed_branch = {CombL.ar(~branch, 5.0, 0.1, MapIn.kr("nature/branch/decay", 0.05, 1.5) , 0.2, 0.0)};
+~delayed_branch = {CombL.ar(~branch, 5.0, MapIn.kr("nature/branch/delay", 0.05, 0.9), MapIn.kr("nature/branch/decay", 0.05, 1.5) , 0.2, 0.0)};
 ~total_branch = {(~branch + ~delayed_branch)};
 
 //chord pad
-~saw_pad1 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0,\degree, Prand([Pseq([0,4]), Pseq([0,-3])],inf), \octave,4,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.5, \cfhzmax, 1.0,  \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
-~saw_pad2 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0, \degree, Prand([Pseq([2,1]), Pseq([0,-1])],inf), \octave,5,\amp,0.5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.1, \cfhzmax, 1.0, \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16);
+~saw_pad1 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0,\degree, Prand([Pseq([0,4]), Pseq([0,-3])],inf), \octave,4, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.5, \cfhzmax, 1.0,  \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16, \cfmin, 200, \cfmax,500);
+~saw_pad2 = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0, \degree, Prand([Pseq([2,1]), Pseq([0,-1])],inf), \octave,5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.1, \cfhzmax, 1.0, \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16, \cfmin, 200, \cfmax,500);
 ~verb_pad = {FreeVerb.ar(~saw_pad1 + ~saw_pad2,0.3,1.2)};
 
 //Lead line, fluttery sine

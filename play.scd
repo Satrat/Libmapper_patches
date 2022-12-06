@@ -1,10 +1,16 @@
 (
 ~sin_harm_bass.play;
+
 ~verb_leaves.play;
+
+~verb_pad.play;
+
 ~crunchy_verb.play;
 ~total_branch.play;
-~verb_pad.play;
+
 ~verb_sin.play;
+
+/*
 
 ~bp_saw.play;
 ~bp_saw2.play;
@@ -14,4 +20,5 @@
 ~ring2.play;
 ~ring3.play;
 ~crack.play;
+*/
 );
