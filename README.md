@@ -15,7 +15,7 @@
 
 ## Controls Summary(Currently a bit outdated...)
 
-### Natural
+### Nature
 
 * sinHarmAmp: volume of sinusoidal drone, ~sine_harm_bass
 * sinHarmRate: rate(Hz) at which ~sine_harm_bass choices a new harmonic spectrum
@@ -38,7 +38,7 @@
 * leadFB: amount of feedback in ~sin_syn
 * leadCutoff: lowpass cutoff frequency for ~sin_syn
 
-### Artificial
+### Humans
 
 * sawPad1Amp: volume of sawtooth drone ~bp_saw (sawPad2Amp, sawPad3Amp similarly control ~bp_saw2 and ~bp_saw3)
 * sawPad1MaxMod: max Hz cutoff frequency of ~bp_saw is modulated by (sawPad2MaxMod, sawPad3MaxMod similarly control ~bp_saw2 and ~bp_saw3)
