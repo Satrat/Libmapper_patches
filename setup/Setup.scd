@@ -1,21 +1,31 @@
 //Boilerplate code for basic live coding functionality
 
 (
-//increase number of buffers the server has access to for loading samples
-s.options.numBuffers = 1024 * 16;
-//increase the memory available to the server
-s.options.memSize = 8192 * 64;
-//boot the server
-s.boot;
-//display the oscilloscope
-s.scope;
-//start proxyspace
-p=ProxySpace.push(s);
-//start tempo clock
-p.makeTempoClock;
-//give proxyspace a tempo
-p.clock.tempo = 2;
-p.fadeTime = 0.01;
+
+// define a server, SATIE needs it
+s = Server.supernova.local;
+// instantiate a SatieConfiguration. Here we will use a stereo spatializer (headphones)
+~satieConfiguration = SatieConfiguration.new(s, [\stereoListener]); //change spatializer based on # of speakers
+// list possible listeners:
+~satieConfiguration.spatializers.keys;
+// instantiate SATIE renderer and pass it the configuration
+~satie = Satie.new(~satieConfiguration);
+~satie.waitForBoot({
+    // display some information
+    s.meter;
+    s.makeGui;
+    s.plotTree;
+
+	s.options.numBuffers = 1024 * 16;
+	s.options.memSize = 8192 * 64;
+	s.scope;
+	p=ProxySpace.push(s);
+	p.makeTempoClock;
+	p.clock.tempo = 2;
+	p.fadeTime = 0.01;
+});
+
+
 Task({
 	3.wait;
 	("SynthDefs.scd").loadRelative;
