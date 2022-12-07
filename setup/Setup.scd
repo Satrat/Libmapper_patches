@@ -3,7 +3,7 @@
 (
 
 // define a server, SATIE needs it
-s = Server.supernova.local;
+s = Server.scsynth.local;
 // instantiate a SatieConfiguration. Here we will use a stereo spatializer (headphones)
 ~satieConfiguration = SatieConfiguration.new(s, [\stereoListener]); //change spatializer based on # of speakers
 // list possible listeners:
