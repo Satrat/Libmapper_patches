@@ -8,14 +8,8 @@ p[\leavesAmp] = {MapIn.kr("nature/leaves/amp", 0, 0.4)};
 p[\leaves].map(\amp, p[\leavesAmp]);
 
 p[\padAmp] = {MapIn.kr("nature/pad/amp", 0, 0.6)};
-//p[\padMinCo] = {MapIn.kr("nature/pad/minCo", 100, 200)};
-//p[\padMaxCo] = {MapIn.kr("nature/pad/maxCo", 500, 1500)};
 p[\saw_pad1].map(\amp, p[\padAmp]);
-//p[\saw_pad1].map(\cfmin, p[\padMinCo]);
-//p[\saw_pad1].map(\cfmax, p[\padMaxCo]);
 p[\saw_pad2].map(\amp, p[\padAmp]);
-//p[\saw_pad2].map(\cfmin, p[\padMinCo]);
-//p[\saw_pad2].map(\cfmax, p[\padMaxCo]);
 
 p[\leadFeedback] = {MapIn.kr("nature/lead/feedback", 0.0, 0.75)};
 p[\leadCutoff] = {MapIn.kr("nature/lead/cutoff", 400, 1500)};
