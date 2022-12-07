@@ -16,11 +16,11 @@ branch_synth.map(\aziDeg, branchAzi);
 
 crunchy_synth = ~satie.makeSourceInstance("crunchy_satie", \busIn, \default, synthArgs: [\bus, n]);
 crunchy_synth.set(\gainDB, 0);
-crunchy_synth.map(\aziDeg, branchAzi);
+crunchy_synth.map(\aziDeg, crunchAzi);
 
 lead_synth = ~satie.makeSourceInstance("lead_satie", \busIn, \default, synthArgs: [\bus, o]);
 lead_synth.set(\gainDB, 0);
-lead_synth.map(\aziDeg, branchAzi);
+lead_synth.map(\aziDeg, leadAzi);
 
 p[\sin_harm_bass].play;
 p[\verb_leaves].play;
