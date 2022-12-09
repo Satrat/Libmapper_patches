@@ -17,7 +17,3 @@ s.waitForBoot {
 	}).start;
 };
 )
-
-
-// Stop all the patches
-//("stop.scd").loadRelative;

@@ -11,6 +11,8 @@ ringBgAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringBgAzi", -90, 90);
 ringMelAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringMelAzi", -90, 90);
 crackAzi = Mapper.makeInSignalBus(s, "humans/spatial/crackAzi", -90, 90);
 
+c = Bus.audio(s,2);
+d = Bus.audio(s,2);
 m = Bus.audio(s,1);
 n = Bus.audio(s,1);
 o = Bus.audio(s,1);
@@ -38,23 +40,35 @@ crack_synth = ~satie.makeSourceInstance("crack_satie", \busIn, \default, synthAr
 crack_synth.set(\gainDB, 0);
 crack_synth.map(\aziDeg, crackAzi);
 
-p[\sin_harm_bass].play;
-p[\verb_leaves].play;
-p[\verb_pad].play;
-
 {Out.ar(m, p[\total_branch])}.play;
 {Out.ar(n, p[\crunchy_verb])}.play;
 {Out.ar(o, p[\verb_sin])}.play;
-
-
-p[\bp_saw].play;
-p[\bp_saw2].play;
-p[\bp_saw3].play;
-p[\grain].play;
 
 {Out.ar(q, p[\ring1])}.play;
 {Out.ar(q, p[\ring2])}.play;
 {Out.ar(r, p[\ring3])}.play;
 {Out.ar(s, p[\crack])}.play;
+
+{Out.ar(c, p[\sin_harm_bass])}.play;
+{Out.ar(c, p[\verb_leaves])}.play;
+{Out.ar(c, p[\verb_pad])}.play;
+
+{Out.ar(d, p[\bp_saw])}.play;
+{Out.ar(d, p[\bp_saw2])}.play;
+{Out.ar(d, p[\bp_saw3])}.play;
+{Out.ar(d, p[\grain])}.play;
+
+p[\router] = { |busNature, busHuman, switcher=1, out=0|
+	var patches;
+	patches = [In.ar(busNature,2), In.ar(busHuman,2), In.ar(busNature,2)];
+	Out.ar(0, Select.ar(switcher, patches));
+};
+
+p[\router].set(\busNature, c, \busHuman, d);
+p[\router].set(\switcher, 1);
+p[\router].play;
+
+p[\session_id] = {MapIn.kr("session_id", 0, 2)};
+p[\router].map(\switcher, p[\session_id]);
 
 )
