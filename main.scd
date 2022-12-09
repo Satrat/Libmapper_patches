@@ -5,14 +5,15 @@
 s.waitForBoot {
 	Mapper.enable("SuperCollider");
 	Task({
-		3.wait;
+		6.wait;
 		("load_humans.scd").loadRelative;
-		3.wait;
+		6.wait;
 		("load_natural.scd").loadRelative;
-		3.wait;
+		6.wait;
 		("natural_signals.scd").loadRelative;
+		6.wait;
 		("humans_signals.scd").loadRelative;
-		3.wait;
+		6.wait;
 		("play.scd").loadRelative;
 	}).start;
 };
