@@ -1,6 +1,6 @@
 (
 p[\sinHarmAmp] = {MapIn.kr("nature/sinHarm/amp", 0.1, 0.5)};
-p[\sinHarmRate] = {MapIn.kr("nature/sinHarm/rate", 0.2, 10)};
+p[\sinHarmRate] = {MapIn.kr("nature/sinHarm/rate", 0.1, 10)};
 p[\sin_harm_bass].map(\amp, p[\sinHarmAmp]);
 p[\sin_harm_bass].map(\rate, p[\sinHarmRate]);
 

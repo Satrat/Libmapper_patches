@@ -6,7 +6,7 @@ p[\sin_harm_bass] = {arg freq = 65.40639132515, amp = 0.12, rate=0.25;
 	Mix.fill(n, {arg index;
 		var f;
 		f = freq * (index + 1);
-		SinOsc.ar([f, f * 1.01], 0.0, 1/n * amp * LFNoise1.kr(0.1 + rate))
+		SinOsc.ar([f, f * 1.01], 0.0, 1/n * amp * LFNoise1.kr(rate))
 	})
 };
 
@@ -36,7 +36,7 @@ l = Prewrite(2, // start with 1
         ), 4);
 e = Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/branch_beat2.wav");
 p[\branch] = Pbind(\instrument,\bplay,\buf,e,\dur,l, \amp, 0.4);
-p[\delayed_branch] = {CombL.ar(p[\branch], 5.0, 0.01 + MapIn.kr("nature/branch/delay", 0.1, 2.5), 2.0, 0.2, 0.0)};
+p[\delayed_branch] = {CombL.ar(p[\branch], 5.0, MapIn.kr("nature/branch/delay", 0.1, 2.5), 2.0, 0.2, 0.0)};
 //p[\delayed_branch] = {CombC.ar(p[\branch], 5.0,  2.5, 3.0, 0.2, 0.0)};
 p[\total_branch] = {(p[\branch] + p[\delayed_branch])};
 //p[\total_branch].play;
@@ -44,14 +44,14 @@ p[\total_branch] = {(p[\branch] + p[\delayed_branch])};
 //chord pad
 p[\saw_pad1] = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0,\degree, Prand([Pseq([0,4]), Pseq([0,-3])],inf), \octave,4, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.5, \cfhzmax, 1.0,  \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16, \cfmin, 100, \cfmax, 1500, \amp, 0.6);
 p[\saw_pad2] = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, \root,0, \degree, Prand([Pseq([2,1]), Pseq([0,-1])],inf), \octave,5, \atk, 0.3, \sus, 0.7, \rel, 0.1, \ts, 8, \c1,0, \c2,1,\cfhzmin, 0.1, \cfhzmax, 1.0, \rqmin, 0.1, \rqmax, 0.5, \lsf, 1, \dur, 16, \cfmin, 100, \cfmax, 1500, \amp, 0.6);
-p[\verb_pad] = {FreeVerb.ar(BLowPass.ar(p[\saw_pad1] + p[\saw_pad2], 20.0 + MapIn.kr("nature/pad/cutOff",400,10000), 2.0),0.3,1.0)};
+p[\verb_pad] = {FreeVerb.ar(BLowPass.ar(p[\saw_pad1] + p[\saw_pad2], MapIn.kr("nature/pad/cutOff",400,10000), 2.0),0.3,1.0)};
 //p[\verb_pad] = {FreeVerb.ar(BLowPass.ar(p[\saw_pad1] + p[\saw_pad2], 1000, 2.0),0.3,1.0)};
 
 p[\verb_pad].play;
 //Lead line, fluttery sine
 SynthDef(\sin_synth, { | out=0, freq = 220, amp = 0.3, atk=0.01, sus=0.2, rel=0.1, ts=1, fb=0,cutoff=1500 |
 	var sig, env, set_cutoff, set_fb;
-	set_cutoff = 20 + cutoff;
+	set_cutoff = cutoff;
 	set_fb = fb;
 	env = EnvGen.kr(Env([0,1,0.8,0],[atk,sus,rel]),timeScale:ts,doneAction:2);
 	sig = SinOscFB.ar(freq, set_fb);

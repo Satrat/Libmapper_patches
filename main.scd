@@ -20,13 +20,13 @@ s.waitForBoot {
 )
 
 // Output amplitude envelopes of select instruments to Libmapper
-// NOT WORKING RN
+// to be used in visuals
 (
-{MapOut.kr(Amplitude.kr(p[\crunchy]), \crunchy, 0, 1)}.play;
-{MapOut.kr(Amplitude.kr(p[\branch]), \nature_perc, 0, 1)}.play;
-{MapOut.kr(Amplitude.kr(p[\sin_syn]), \nature_lead, 0, 1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(m)),"sc/nature/crunchy",0,1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(n)), "sc/nature/percussion", 0, 1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(o)), "sc/nature/lead", 0, 1)}.play;
 
-{MapOut.kr(Amplitude.kr(p[\ring1] + p[\ring2]), \human_bg, 0, 1)}.play;
-{MapOut.kr(Amplitude.kr(p[\ring3]), \human_lead, 0, 1)}.play;
-{MapOut.kr(Amplitude.kr(p[\crack]), \human_perc, 0, 1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(q)),"sc/humans/counter_lead",0,1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(r)), "sc/humans/lead", 0, 1)}.play;
+{MapOut.kr(Amplitude.kr(In.ar(s)), "sc/humans/percussion", 0, 1)}.play;
 )

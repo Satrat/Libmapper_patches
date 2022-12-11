@@ -21,23 +21,23 @@ r = Bus.audio(s,1);
 s = Bus.audio(s,1);
 
 branch_synth = ~satie.makeSourceInstance("branch_satie", \busIn, \default, synthArgs: [\bus, m]);
-branch_synth.set(\gainDB, 0);
+branch_synth.set(\gainDB, 0, \spread, 0);
 branch_synth.map(\aziDeg, branchAzi);
 crunchy_synth = ~satie.makeSourceInstance("crunchy_satie", \busIn, \default, synthArgs: [\bus, n]);
-crunchy_synth.set(\gainDB, 0);
+crunchy_synth.set(\gainDB, 0, \spread, 0);
 crunchy_synth.map(\aziDeg, crunchAzi);
 lead_synth = ~satie.makeSourceInstance("lead_satie", \busIn, \default, synthArgs: [\bus, o]);
-lead_synth.set(\gainDB, 0);
+lead_synth.set(\gainDB, 0, \spread, 0);
 lead_synth.map(\aziDeg, leadAzi);
 
 ringBg_synth = ~satie.makeSourceInstance("ringBg_satie", \busIn, \default, synthArgs: [\bus, q]);
-ringBg_synth.set(\gainDB, 0);
+ringBg_synth.set(\gainDB, 0, \spread, 0);
 ringBg_synth.map(\aziDeg, ringBgAzi);
 ringMel_synth = ~satie.makeSourceInstance("ringMel_satie", \busIn, \default, synthArgs: [\bus, r]);
-ringMel_synth.set(\gainDB, 0);
+ringMel_synth.set(\gainDB, 0, \spread, 0);
 ringMel_synth.map(\aziDeg, ringMelAzi);
 crack_synth = ~satie.makeSourceInstance("crack_satie", \busIn, \default, synthArgs: [\bus, s]);
-crack_synth.set(\gainDB, 0);
+crack_synth.set(\gainDB, 0, \spread, 0);
 crack_synth.map(\aziDeg, crackAzi);
 
 {Out.ar(m, p[\total_branch])}.play;
