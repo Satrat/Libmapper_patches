@@ -1,8 +1,8 @@
 (
 
-p[\grainSize] = {MapIn.kr("humans/grain/size", 0.05, 0.6)};
+p[\grainSize] = {MapIn.kr("humans/grain/size", 0.0, 0.55)}; //gets offset by 0.05
 p[\grainRand] = {MapIn.kr("humans/grain/rand", 0, 0.5)};
-p[\grainFreqScale] = {MapIn.kr("humans/grain/freqScale", 0.75, 1.25)};
+p[\grainFreqScale] = {MapIn.kr("humans/grain/freqScale", 0.0, 0.50)}; //gets offset by 0.75
 p[\grainAmp] = {MapIn.kr("humans/grain/amp", 0.0, 0.6)};
 p[\grain].map(\size, p[\grainSize]);
 p[\grain].map(\rand, p[\grainRand]);

@@ -15,9 +15,9 @@ p[\grain] =  { arg size = 0.1, rand = 0.2, scale = 1.0, amp = 0.3;
     var pointer, set_rand, set_scale, set_size;
     // pointer - move from beginning to end of soundfile over 6 seconds
     pointer = LFSaw.ar(1/6).range(0, 1);
-	set_rand = rand; //rand;
-	set_scale = scale; //scale + 0.25;
-	set_size = size; //size + 0.05;
+	set_rand = rand;
+	set_scale = 0.75 + scale;
+	set_size = 0.05 + size;
     Warp1.ar(
         numChannels:2,
         bufnum:j,
@@ -59,7 +59,7 @@ SynthDef(\crack, { | out=0, chaos = 1.0, atk=0.1, sus=0.2, rel=0.1, ts=1,co=3000
 	var sig, env;
 	env = EnvGen.kr(Env([0,1,0.8,0],[atk,sus,rel]),timeScale:ts,doneAction:2);
 	sig = Crackle.ar(chaos) * env * amp;
-	Out.ar(out,[sig, sig]);
+	Out.ar(out,sig);
 }).add;
 
 p[\crack] = Pbind(\instrument,\crack, \dur,Pseq([1],inf), \atk, 0.01, \sus, 0.01, \amp, 0.6, \rel, 0.1, \chaos, 2.0);
