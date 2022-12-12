@@ -2,7 +2,6 @@
 var branch_synth, branchAzi, crunchy_synth, crunchAzi, lead_synth, leadAzi;
 var ringBg_synth, ringBgAzi, ringMel_synth, ringMelAzi, crack_synth, crackAzi;
 
-
 branchAzi = Mapper.makeInSignalBus(s, "nature/spatial/branchAzi", -180, 180);
 crunchAzi = Mapper.makeInSignalBus(s, "nature/spatial/crunchAzi", -180, 180);
 leadAzi = Mapper.makeInSignalBus(s, "nature/spatial/leadAzi", -180, 180);
@@ -11,9 +10,9 @@ ringBgAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringBgAzi", -180, 180);
 ringMelAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringMelAzi", -180, 180);
 crackAzi = Mapper.makeInSignalBus(s, "humans/spatial/crackAzi", -180, 180);
 
+a = Bus.audio(s,2);
 c = Bus.audio(s,2);
 d = Bus.audio(s,2);
-i = Bus.audio(s,2);
 m = Bus.audio(s,1);
 n = Bus.audio(s,1);
 o = Bus.audio(s,1);
@@ -59,14 +58,14 @@ crack_synth.map(\aziDeg, crackAzi);
 {Out.ar(d, p[\bp_saw3])}.play;
 {Out.ar(d, p[\grain])}.play;
 
-{Out.ar(i, p[\lossy_leaves])}.play;
-{Out.ar(i, p[\total_between_branch])}.play;
-{Out.ar(i, p[\lossy_lead])}.play;
-{Out.ar(i, p[\ring1B])}.play;
-{Out.ar(i, p[\ring2B])}.play;
-{Out.ar(i, p[\bp_sawB])}.play;
-{Out.ar(i, p[\bp_saw2B])}.play;
-{Out.ar(i, p[\bp_saw3B])}.play;
+{Out.ar(a, p[\lossy_leaves])}.play;
+{Out.ar(a, p[\total_between_branch])}.play;
+{Out.ar(a, p[\lossy_lead])}.play;
+{Out.ar(a, p[\ring1B])}.play;
+{Out.ar(a, p[\ring2B])}.play;
+{Out.ar(a, p[\bp_sawB])}.play;
+{Out.ar(a, p[\bp_saw2B])}.play;
+{Out.ar(a, p[\bp_saw3B])}.play;
 
 p[\router] = { |busNature, busHuman, busBetween, switcher=1, out=0|
 	var patches;
@@ -74,10 +73,9 @@ p[\router] = { |busNature, busHuman, busBetween, switcher=1, out=0|
 	Out.ar(0, Select.ar(switcher, patches));
 };
 
-p[\router].set(\busNature, c, \busHuman, d, \busBetween, i);
+p[\router].set(\busNature, c, \busHuman, d, \busBetween, a);
 p[\router].play;
 
 p[\session_id] = {MapIn.kr("session_id", 0, 2)};
 p[\router].map(\switcher, p[\session_id]);
-
 )

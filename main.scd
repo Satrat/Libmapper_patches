@@ -10,15 +10,30 @@ s.waitForBoot {
 		6.wait;
 		("load_natural.scd").loadRelative;
 		6.wait;
+		("load_between.scd").loadRelative;
+		6.wait;
 		("natural_signals.scd").loadRelative;
 		6.wait;
 		("humans_signals.scd").loadRelative;
 		6.wait;
-		("load_between.scd").loadRelative;
+		//("play.scd").loadRelative;
 		6.wait;
-		("play.scd").loadRelative;
 	}).start;
 };
+)
+
+(
+p[\router] = { |busNature, busHuman, busBetween, switcher=1, out=0|
+	var patches;
+	patches = [In.ar(busNature,2), In.ar(busHuman,2), In.ar(busBetween,2)];
+	Out.ar(0, Select.ar(switcher, patches));
+};
+
+p[\router].set(\busNature, c, \busHuman, d, \busBetween, a);
+p[\router].play;
+
+p[\session_id] = {MapIn.kr("session_id", 0, 2)};
+p[\router].map(\switcher, p[\session_id]);
 )
 
 // Output amplitude envelopes of select instruments to Libmapper

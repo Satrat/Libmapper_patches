@@ -28,14 +28,9 @@ p[\saw_syn] = Pbind(\instrument,\saw_synth,\f,Pkey(\freq),\scale,Scale.major,\ro
 p[\lossy_lead] = {WaveLoss.ar(p[\saw_syn], 30, 100, 1)};
 //p[\lossy_lead].play;
 
+p[\ring1B] = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,5,\dur,Pseq([0.5,0.5,1],inf),\d,1.0,\amax,0.6, \amp, 0.4);
 
-
-p[\ring1] = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,5,\dur,Pseq([0.5,0.5,1],inf),\d,1.0,\amax,0.6, \amp, 0.4);
-
-p[\ring2] = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,4,\octave,5,\dur,Pwrand([Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5, 0.5]), Pseq([1,1])], [0.1, 0.2, 0.7], inf), \d,1.0,\amax,0.6, \amp, 0.4);
-
-//p[\ring1].play;
-//p[\ring2].play;
+p[\ring2B] = Pbind(\instrument,\ring1,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,4,\octave,5,\dur,Pwrand([Pseq([0.25,0.25,0.25,0.25]), Pseq([0.5,0.5, 0.5]), Pseq([1,1])], [0.1, 0.2, 0.7], inf), \d,1.0,\amax,0.6, \amp, 0.4);
 
 k = Buffer.read(s, thisProcess.nowExecutingPath.dirname++"/audio/leaf_loop1.wav");
 p[\grain_between] =  { arg size = 0.1, rand = 0.4, scale = 1.0, amp = 1.0;
@@ -60,11 +55,11 @@ p[\grain_between] =  { arg size = 0.1, rand = 0.4, scale = 1.0, amp = 1.0;
 
 //p[\grain_between].play;
 
-p[\bp_saw] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,4,\dur, 1, \pan,0,\detune,0.1,\cfmin,500, \cfmax,4000, \cfhzmin, 0.1, \cfhzmax, 2, \amp, 0.15);
+p[\bp_sawB] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,4,\dur, 1, \pan,0,\detune,0.1,\cfmin,500, \cfmax,4000, \cfhzmin, 0.1, \cfhzmax, 2, \amp, 0.15);
 
-p[\bp_saw2] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,3,\dur, 1, \pan,0, \detune,0.1,\cfmin,500, \cfmax,3000, \cfhzmin, 0.1, \cfhzmax, 2, \amp, 0.15);
+p[\bp_saw2B] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,3,\dur, 1, \pan,0, \detune,0.1,\cfmin,500, \cfmax,3000, \cfhzmin, 0.1, \cfhzmax, 2, \amp, 0.15);
 
-p[\bp_saw3] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,2,\dur, 1, \pan,0, \detune,0.1,\cfmin,100, \cfmax,1000, \cfhzmin, 2, \cfhzmax, 2, \lsf, 50, \amp, 0.15);
+p[\bp_saw3B] = Pbind(\instrument,\bpfsaw,\f,Pkey(\freq),\scale,Scale.major,\root,0,\degree,0,\octave,2,\dur, 1, \pan,0, \detune,0.1,\cfmin,100, \cfmax,1000, \cfhzmin, 2, \cfhzmax, 2, \lsf, 50, \amp, 0.15);
 
 //p[\bp_saw].play;
 //p[\bp_saw2].play;
