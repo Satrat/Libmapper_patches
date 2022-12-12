@@ -3,13 +3,13 @@ var branch_synth, branchAzi, crunchy_synth, crunchAzi, lead_synth, leadAzi;
 var ringBg_synth, ringBgAzi, ringMel_synth, ringMelAzi, crack_synth, crackAzi;
 
 
-branchAzi = Mapper.makeInSignalBus(s, "nature/spatial/branchAzi", -90, 90);
-crunchAzi = Mapper.makeInSignalBus(s, "nature/spatial/crunchAzi", -90, 90);
-leadAzi = Mapper.makeInSignalBus(s, "nature/spatial/leadAzi", -90, 90);
+branchAzi = Mapper.makeInSignalBus(s, "nature/spatial/branchAzi", -180, 180);
+crunchAzi = Mapper.makeInSignalBus(s, "nature/spatial/crunchAzi", -180, 180);
+leadAzi = Mapper.makeInSignalBus(s, "nature/spatial/leadAzi", -180, 180);
 
-ringBgAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringBgAzi", -90, 90);
-ringMelAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringMelAzi", -90, 90);
-crackAzi = Mapper.makeInSignalBus(s, "humans/spatial/crackAzi", -90, 90);
+ringBgAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringBgAzi", -180, 180);
+ringMelAzi = Mapper.makeInSignalBus(s, "humans/spatial/ringMelAzi", -180, 180);
+crackAzi = Mapper.makeInSignalBus(s, "humans/spatial/crackAzi", -180, 180);
 
 c = Bus.audio(s,2);
 d = Bus.audio(s,2);
