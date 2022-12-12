@@ -13,6 +13,7 @@ crackAzi = Mapper.makeInSignalBus(s, "humans/spatial/crackAzi", -180, 180);
 
 c = Bus.audio(s,2);
 d = Bus.audio(s,2);
+i = Bus.audio(s,2);
 m = Bus.audio(s,1);
 n = Bus.audio(s,1);
 o = Bus.audio(s,1);
@@ -58,14 +59,22 @@ crack_synth.map(\aziDeg, crackAzi);
 {Out.ar(d, p[\bp_saw3])}.play;
 {Out.ar(d, p[\grain])}.play;
 
-p[\router] = { |busNature, busHuman, switcher=1, out=0|
+{Out.ar(i, p[\lossy_leaves])}.play;
+{Out.ar(i, p[\total_between_branch])}.play;
+{Out.ar(i, p[\lossy_lead])}.play;
+{Out.ar(i, p[\ring1B])}.play;
+{Out.ar(i, p[\ring2B])}.play;
+{Out.ar(i, p[\bp_sawB])}.play;
+{Out.ar(i, p[\bp_saw2B])}.play;
+{Out.ar(i, p[\bp_saw3B])}.play;
+
+p[\router] = { |busNature, busHuman, busBetween, switcher=1, out=0|
 	var patches;
-	patches = [In.ar(busNature,2), In.ar(busHuman,2), In.ar(busNature,2)];
+	patches = [In.ar(busNature,2), In.ar(busHuman,2), In.ar(busBetween,2)];
 	Out.ar(0, Select.ar(switcher, patches));
 };
 
-p[\router].set(\busNature, c, \busHuman, d);
-p[\router].set(\switcher, 1);
+p[\router].set(\busNature, c, \busHuman, d, \busBetween, i);
 p[\router].play;
 
 p[\session_id] = {MapIn.kr("session_id", 0, 2)};

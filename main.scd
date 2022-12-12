@@ -14,6 +14,8 @@ s.waitForBoot {
 		6.wait;
 		("humans_signals.scd").loadRelative;
 		6.wait;
+		("load_between.scd").loadRelative;
+		6.wait;
 		("play.scd").loadRelative;
 	}).start;
 };
