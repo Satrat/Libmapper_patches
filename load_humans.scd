@@ -15,9 +15,9 @@ p[\grain] =  { arg size = 0.1, rand = 0.2, scale = 1.0, amp = 0.3;
     var pointer, set_rand, set_scale, set_size;
     // pointer - move from beginning to end of soundfile over 6 seconds
     pointer = LFSaw.ar(1/6).range(0, 1);
-	set_rand = 0.2; //rand;
-	set_scale = 1.0; //scale + 0.25;
-	set_size = 0.1; //size + 0.05;
+	set_rand = rand; //rand;
+	set_scale = scale; //scale + 0.25;
+	set_size = size; //size + 0.05;
     Warp1.ar(
         numChannels:2,
         bufnum:j,

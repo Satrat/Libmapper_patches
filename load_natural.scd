@@ -15,7 +15,7 @@ p[\sin_harm_bass] = {arg freq = 65.40639132515, amp = 0.12, rate=0.25;
 //play loops of leaves
 b=Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/leaf_loop3_breath.wav");
 p[\leaves] = Pbind(\instrument,\bplay,\buf,b,\dur,16);
-p[\leaves].set(\amp, 0.8);
+//p[\leaves].set(\amp, 0.8);
 p[\verb_leaves] = {FreeVerb.ar(p[\leaves],0.3,0.9)};
 //p[\verb_leaves].play;
 
@@ -24,7 +24,7 @@ p[\verb_leaves] = {FreeVerb.ar(p[\leaves],0.3,0.9)};
 ~test = 4; //TODO: want to control this with Libmapper
 h=Buffer.read(s,thisProcess.nowExecutingPath.dirname++"/audio/crunchy_wood_seg2.wav");
 p[\crunchy] = Pbind(\instrument, \bplay, \buf, h, \dur, Prand([~test, ~test*2,~test*3],inf));
-p[\crunchy].set(\amp, 0.8);
+//p[\crunchy].set(\amp, 0.8);
 p[\crunchy_verb] = {FreeVerb.ar(p[\crunchy],0.2,0.5)};
 //p[\crunchy_verb].play;
 
@@ -47,7 +47,7 @@ p[\saw_pad2] = Pbind(\instrument, \bpfsaw, \f,Pkey(\freq), \scale, Scale.major, 
 p[\verb_pad] = {FreeVerb.ar(BLowPass.ar(p[\saw_pad1] + p[\saw_pad2], MapIn.kr("nature/pad/cutOff",400,10000), 2.0),0.3,1.0)};
 //p[\verb_pad] = {FreeVerb.ar(BLowPass.ar(p[\saw_pad1] + p[\saw_pad2], 1000, 2.0),0.3,1.0)};
 
-p[\verb_pad].play;
+//p[\verb_pad].play;
 //Lead line, fluttery sine
 SynthDef(\sin_synth, { | out=0, freq = 220, amp = 0.3, atk=0.01, sus=0.2, rel=0.1, ts=1, fb=0,cutoff=1500 |
 	var sig, env, set_cutoff, set_fb;
