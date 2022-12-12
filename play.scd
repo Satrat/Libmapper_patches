@@ -18,7 +18,7 @@ n = Bus.audio(s,1);
 o = Bus.audio(s,1);
 q = Bus.audio(s,1);
 r = Bus.audio(s,1);
-s = Bus.audio(s,1);
+t = Bus.audio(s,1);
 
 branch_synth = ~satie.makeSourceInstance("branch_satie", \busIn, \default, synthArgs: [\bus, m]);
 branch_synth.set(\gainDB, 0, \spread, 0);
@@ -36,7 +36,7 @@ ringBg_synth.map(\aziDeg, ringBgAzi);
 ringMel_synth = ~satie.makeSourceInstance("ringMel_satie", \busIn, \default, synthArgs: [\bus, r]);
 ringMel_synth.set(\gainDB, 0, \spread, 0);
 ringMel_synth.map(\aziDeg, ringMelAzi);
-crack_synth = ~satie.makeSourceInstance("crack_satie", \busIn, \default, synthArgs: [\bus, s]);
+crack_synth = ~satie.makeSourceInstance("crack_satie", \busIn, \default, synthArgs: [\bus, t]);
 crack_synth.set(\gainDB, 0, \spread, 0);
 crack_synth.map(\aziDeg, crackAzi);
 
@@ -47,7 +47,7 @@ crack_synth.map(\aziDeg, crackAzi);
 {Out.ar(q, p[\ring1])}.play;
 {Out.ar(q, p[\ring2])}.play;
 {Out.ar(r, p[\ring3])}.play;
-{Out.ar(s, p[\crack])}.play;
+{Out.ar(t, p[\crack])}.play;
 
 {Out.ar(c, p[\sin_harm_bass])}.play;
 {Out.ar(c, p[\verb_leaves])}.play;
